@@ -1,8 +1,8 @@
-# MLSC Knowledge Assistant & Evaluation Dashboard
+# Knowledge Assistant & Evaluation Dashboard
 
-An AI-powered knowledge assistant and evaluation system built for the **Microsoft Learn Student Community (MLSC) VIT Pune**. 
+An AI-powered knowledge assistant and evaluation system. 
 
-This system uses a advanced hybrid RAG (Retrieval-Augmented Generation) pipeline to answer user questions using the provided MLSC community documents, handles multi-document reasoning, avoids hallucinations by correctly identifying unanswerable questions, and contains an automated evaluation suite to assess performance using LLM-as-a-judge metrics.
+This system uses a advanced hybrid RAG (Retrieval-Augmented Generation) pipeline to answer user questions using the provided community documents, handles multi-document reasoning, avoids hallucinations by correctly identifying unanswerable questions, and contains an automated evaluation suite to assess performance using LLM-as-a-judge metrics.
 
 ---
 
@@ -29,10 +29,10 @@ This system uses a advanced hybrid RAG (Retrieval-Augmented Generation) pipeline
 Ensure you have **Python 3.11+** installed. Using `uv` is recommended for high-speed package management, though standard `pip` works too.
 
 ### 1. Clone & Set working directory
-Verify that the project structure contains the knowledge base documents in the `AboutMLSC/` folder:
+Verify that the project structure contains the knowledge base documents in the `About/` folder:
 ```
-mlsc_knowledge_base/ (or AboutMLSC/)
-├── about_mlsc.txt
+knowledge_base/ (or About/)
+├── about.txt
 ├── code_of_conduct.txt
 ├── domains.txt
 ├── hackathons.txt
