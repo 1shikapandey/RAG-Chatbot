@@ -1,0 +1,107 @@
+[
+  {
+    "id": "Q01",
+    "category": "direct",
+    "question": "What technical domains exist in MLSC?",
+    "reference_answer": "MLSC has five major technical domains through which students can learn and contribute to projects: 1. Artificial Intelligence and Machine Learning, 2. Web Development, 3. App Development, 4. Cloud Computing, and 5. Web3.",
+    "expected_sources": ["domains.txt"]
+  },
+  {
+    "id": "Q02",
+    "category": "direct",
+    "question": "What are the stages of an MLSC hackathon?",
+    "reference_answer": "Participants in MLSC hackathons generally progress through several stages: registration, idea submission, shortlisting, development, and final presentation.",
+    "expected_sources": ["hackathons.txt"]
+  },
+  {
+    "id": "Q03",
+    "category": "direct",
+    "question": "What happens if a member violates the MLSC code of conduct?",
+    "reference_answer": "Violation of the MLSC code of conduct may result in removal from specific activities or other actions determined by the MLSC leadership team.",
+    "expected_sources": ["code_of_conduct.txt"]
+  },
+  {
+    "id": "Q04",
+    "category": "multi-document",
+    "question": "What are the responsibilities of domain leads, and which technical domains do they manage?",
+    "reference_answer": "Each technical domain has two domain leads who plan the learning roadmap, assign tasks, conduct knowledge-sharing sessions, review technical projects, mentor coordinators, encourage hackathon participation, and coordinate cross-domain projects. They manage five major technical domains: Artificial Intelligence and Machine Learning, Web Development, App Development, Cloud Computing, and Web3.",
+    "expected_sources": ["leadership.txt", "domains.txt"]
+  },
+  {
+    "id": "Q05",
+    "category": "multi-document",
+    "question": "How does one become a coordinator in MLSC, and who guides them once they are selected?",
+    "reference_answer": "Coordinators are selected through the MLSC recruitment process, where candidates are evaluated on technical skills, willingness to contribute, communication, and teamwork. Once selected, coordinators work under the guidance and mentorship of domain leads.",
+    "expected_sources": ["membership.txt", "leadership.txt"]
+  },
+  {
+    "id": "Q06",
+    "category": "multi-document",
+    "question": "Can a community member participate in hackathons and cross-domain projects?",
+    "reference_answer": "Yes, community members can participate in technical events, workshops, hackathons, and community initiatives. For projects that span multiple domains (cross-domain projects), domain leads are responsible for coordinating them when required.",
+    "expected_sources": ["membership.txt", "about_mlsc.txt", "leadership.txt"]
+  },
+  {
+    "id": "Q07",
+    "category": "reasoning",
+    "question": "How does the MLSC leadership structure support knowledge sharing and skill development for coordinators?",
+    "reference_answer": "The leadership structure supports development through a hierarchical system designed for mentorship. Domain leads conduct knowledge-sharing sessions and actively mentor coordinators. Leads also divide projects into manageable tasks, provide constructive feedback, and guide second-year coordinators to gradually take more responsibility for projects and activities.",
+    "expected_sources": ["leadership.txt"]
+  },
+  {
+    "id": "Q08",
+    "category": "reasoning",
+    "question": "If a team wants to build a project that integrates machine learning and deployment, which MLSC domains would be involved?",
+    "reference_answer": "A project integrating machine learning and deployment would involve the Artificial Intelligence and Machine Learning domain (which focuses on machine learning, deep learning, NLP, computer vision, and applied AI systems) and the Cloud Computing domain (which focuses on cloud infrastructure, deployment, DevOps, containers, and cloud-native applications).",
+    "expected_sources": ["domains.txt", "hackathons.txt"]
+  },
+  {
+    "id": "Q09",
+    "category": "reasoning",
+    "question": "Why does MLSC evaluate coordinator candidates on communication and teamwork in addition to technical skills?",
+    "reference_answer": "MLSC emphasizes communication and teamwork because community coordinators must communicate respectfully with other students, leads, and collaborators. They must coordinate cross-domain projects and handle technical disagreements professionally, which requires constructive challenge of ideas rather than disruption.",
+    "expected_sources": ["membership.txt", "leadership.txt", "code_of_conduct.txt"]
+  },
+  {
+    "id": "Q10",
+    "category": "unanswerable",
+    "question": "Who is the current Technical Head of MLSC VIT Pune?",
+    "reference_answer": "I am sorry, but the provided knowledge base does not contain information about the name of the current Technical Head of MLSC VIT Pune.",
+    "expected_sources": []
+  },
+  {
+    "id": "Q11",
+    "category": "unanswerable",
+    "question": "What programming languages are taught in the Web Development workshops?",
+    "reference_answer": "I am sorry, but the provided knowledge base does not specify which programming languages are taught in the Web Development workshops.",
+    "expected_sources": []
+  },
+  {
+    "id": "Q12",
+    "category": "unanswerable",
+    "question": "Which external industry sponsors funded the latest MLSC hackathon?",
+    "reference_answer": "I am sorry, but the provided knowledge base does not contain information about external industry sponsors or funding for MLSC hackathons.",
+    "expected_sources": []
+  },
+  {
+    "id": "Q13",
+    "category": "ambiguous",
+    "question": "What are the community guidelines for behavior and handling conflicts?",
+    "reference_answer": "MLSC community members are expected to maintain a respectful and inclusive environment, communicating respectfully with others. Harassment, discrimination, plagiarism, and intentional disruption are unacceptable. Technical disagreements must be handled professionally, and ideas should be challenged constructively.",
+    "expected_sources": ["code_of_conduct.txt"]
+  },
+  {
+    "id": "Q14",
+    "category": "ambiguous",
+    "question": "How does the community help students learn through practical implementation?",
+    "reference_answer": "MLSC helps students learn through hands-on activities, focusing on learning technologies by doing rather than just studying theory. This is achieved through technical workshops, study sessions, project-building initiatives, hackathon preparation, and encouraging participation in hackathons and open-source collaborative projects.",
+    "expected_sources": ["about_mlsc.txt", "domains.txt", "hackathons.txt"]
+  },
+  {
+    "id": "Q15",
+    "category": "ambiguous",
+    "question": "What are the rules regarding copying code or projects in MLSC?",
+    "reference_answer": "In MLSC, plagiarism is not acceptable. Members are expected to respect intellectual property and properly acknowledge any external resources used in their projects.",
+    "expected_sources": ["code_of_conduct.txt"]
+  }
+]

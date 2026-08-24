@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.env
+.embeddings_cache.json
+eval_results.json
+.DS_Store
+__MACOSX/

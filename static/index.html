@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLSC Knowledge Assistant & Evaluation Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Evaluation Reports -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="glass-app">
+        <!-- Main Dual Panel Layout -->
+        <main class="app-container">
+            
+            <!-- Left Panel: Chat Assistant -->
+            <section class="panel chat-panel" id="chat-section">
+                <header class="panel-header">
+                    <div class="branding">
+                        <div class="logo-orb">
+                            <i class="fa-solid fa-brain glow-icon"></i>
+                        </div>
+                        <div class="title-meta">
+                            <h1>MLSC Knowledge Assistant</h1>
+                            <span class="status-badge" id="app-status"><i class="fa-solid fa-circle-dot"></i> Checking status...</span>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- API Key Config Bar -->
+                <div class="api-key-config" id="api-key-bar">
+                    <div class="config-header" id="toggle-config">
+                        <span class="config-title"><i class="fa-solid fa-key"></i> Gemini API Configuration</span>
+                        <span class="config-indicator" id="config-status-label">Mock Mode</span>
+                    </div>
+                    <div class="config-body" id="config-fields">
+                        <p class="config-info">A Gemini API Key is required for generating responses and evaluating metrics. Without it, the assistant runs in offline BM25 mock mode.</p>
+                        <div class="input-group">
+                            <input type="password" id="api-key-input" placeholder="Enter GEMINI_API_KEY...">
+                            <button id="save-key-btn" class="glow-btn"><i class="fa-solid fa-floppy-disk"></i> Save Key</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Feed -->
+                <div class="chat-feed" id="chat-messages">
+                    <div class="message assistant-msg system-msg">
+                        <div class="message-avatar">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <p>Hello! I am the **MLSC Knowledge Assistant**. You can ask me any question about the Microsoft Learn Student Community (MLSC) VIT Pune, including its technical domains, leadership responsibilities, membership, and hackathons.</p>
+                            <p>Try asking: *“What technical domains exist in MLSC?”* or *“Who coordinates the cross-domain projects?”*</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Input -->
+                <footer class="chat-footer">
+                    <form id="chat-form" class="input-container">
+                        <input type="text" id="chat-input" placeholder="Ask a question about MLSC..." autocomplete="off" required>
+                        <button type="submit" class="send-btn" id="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </footer>
+            </section>
+
+            <!-- Right Panel: Interactive Dashboard -->
+            <section class="panel dashboard-panel">
+                <nav class="dashboard-tabs">
+                    <button class="tab-btn active" data-tab="inspector-tab"><i class="fa-solid fa-file-invoice"></i> Knowledge Base Inspector</button>
+                    <button class="tab-btn" data-tab="evaluator-tab"><i class="fa-solid fa-chart-line"></i> Evaluation Dashboard</button>
+                </nav>
+
+                <div class="tab-content active" id="inspector-tab">
+                    <div class="doc-controls">
+                        <label for="doc-select"><i class="fa-solid fa-book"></i> Active Document:</label>
+                        <select id="doc-select">
+                            <option value="">-- Select a document --</option>
+                        </select>
+                    </div>
+                    <div class="doc-viewer-container">
+                        <div class="doc-header">
+                            <span class="doc-name" id="opened-doc-title">No document selected</span>
+                            <span class="doc-lines-count" id="opened-doc-lines">0 lines</span>
+                        </div>
+                        <pre class="doc-code-view"><code id="doc-content-view" class="line-numbered">Select a document from the dropdown above, or click on a RAG citation source in the chat window to inspect facts and check grounding.</code></pre>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="evaluator-tab">
+                    <div class="eval-hero">
+                        <div class="eval-hero-info">
+                            <h2>Automated RAG Evaluation Suite</h2>
+                            <p>Assess the quality of the system on a test dataset of 15 questions across Context Precision, Recall, Relevancy, and Groundedness using LLM-as-a-judge.</p>
+                        </div>
+                        <button id="run-eval-btn" class="eval-btn glow-btn"><i class="fa-solid fa-play"></i> Run Evaluation</button>
+                    </div>
+
+                    <div id="eval-loading" class="eval-loading hidden">
+                        <div class="spinner"></div>
+                        <p>Executing evaluation set. Scoring retrieved contexts and assessing answers. This takes about 15-20 seconds...</p>
+                    </div>
+
+                    <!-- Evaluation Results Section -->
+                    <div id="eval-results-container" class="eval-results hidden">
+                        
+                        <!-- Summary Cards -->
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <span class="metric-label">Retrieval Precision</span>
+                                <div class="metric-value" id="val-precision">0%</div>
+                                <span class="metric-desc">Context Precision</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label">Retrieval Recall</span>
+                                <div class="metric-value" id="val-recall">0%</div>
+                                <span class="metric-desc">Context Recall</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label">Answer Relevancy</span>
+                                <div class="metric-value" id="val-relevancy">0%</div>
+                                <span class="metric-desc">Answer Relevancy</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label">Faithfulness</span>
+                                <div class="metric-value" id="val-faithfulness">0%</div>
+                                <span class="metric-desc">Groundedness score</span>
+                            </div>
+                        </div>
+
+                        <!-- Chart Container -->
+                        <div class="chart-box">
+                            <canvas id="metricsChart"></canvas>
+                        </div>
+
+                        <!-- Detailed Questions Review -->
+                        <div class="eval-list-section">
+                            <h3>Detailed Evaluation Runs</h3>
+                            <div class="eval-table-wrapper">
+                                <table class="eval-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Category</th>
+                                            <th>Question</th>
+                                            <th>Metrics</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="eval-table-body">
+                                        <!-- Dynamically injected -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Details Modal -->
+    <div class="modal" id="details-modal">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>Evaluation Run Details - <span id="modal-item-id">Q01</span></h2>
+                <button class="close-modal-btn" id="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-row">
+                    <strong>Question:</strong>
+                    <p id="modal-q"></p>
+                </div>
+                <div class="detail-row">
+                    <strong>Reference (Ground Truth) Answer:</strong>
+                    <p id="modal-ref" class="answer-box bg-ref"></p>
+                </div>
+                <div class="detail-row">
+                    <strong>Assistant's Generated Answer:</strong>
+                    <p id="modal-gen" class="answer-box bg-gen"></p>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Sources Retrieval Check:</strong>
+                    <p>Expected Sources: <span id="modal-expected-src"></span> | Actual Retrieved: <span id="modal-actual-src"></span></p>
+                </div>
+
+                <div class="detail-metrics-box">
+                    <h3>LLM-as-a-judge Evaluation Breakdown</h3>
+                    <div class="judge-metric">
+                        <div class="judge-metric-header">
+                            <span>Context Precision: <strong id="modal-m-precision"></strong></span>
+                        </div>
+                        <p class="judge-explanation" id="modal-e-precision"></p>
+                    </div>
+                    <div class="judge-metric">
+                        <div class="judge-metric-header">
+                            <span>Context Recall: <strong id="modal-m-recall"></strong></span>
+                        </div>
+                        <p class="judge-explanation" id="modal-e-recall"></p>
+                    </div>
+                    <div class="judge-metric">
+                        <div class="judge-metric-header">
+                            <span>Answer Relevancy: <strong id="modal-m-relevancy"></strong></span>
+                        </div>
+                        <p class="judge-explanation" id="modal-e-relevancy"></p>
+                    </div>
+                    <div class="judge-metric">
+                        <div class="judge-metric-header">
+                            <span>Faithfulness / Groundedness: <strong id="modal-m-faithfulness"></strong></span>
+                        </div>
+                        <p class="judge-explanation" id="modal-e-faithfulness"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
